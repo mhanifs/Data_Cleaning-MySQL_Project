@@ -10,7 +10,7 @@ SELECT * FROM layoffs;
 
 -- Steps involved in data cleaning as follows
 -- 1. Remove Duplicates
--- 2. Data Standardize the data
+-- 2. Standardize the data
 -- 3. Handle NULL and blank values
 -- 4. Remove any Columns or Rows not necessary
 
