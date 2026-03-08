@@ -207,3 +207,16 @@ Text standardization
 Data type conversion
 
 Data preparation for analytics.
+
+Author
+
+Hanif S
+
+Data professional with experience in SQL, data analysis, and data engineering workflows.
+
+
+---
+
+Portfolio Purpose
+
+This project is part of a SQL portfolio demonstrating practical data preparation and cleaning techniques used in real-world analytics projects.
