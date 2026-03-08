@@ -1,34 +1,34 @@
 Project Overview
 
-This project focuses on cleaning and preparing a real-world layoffs dataset using MySQL. Raw datasets often contain inconsistencies, duplicates, missing values, and formatting issues that must be resolved before meaningful analysis can be performed.
+This project demonstrates a structured approach to cleaning and preparing raw data using MySQL.
 
-The objective of this project is to demonstrate a structured SQL-based data cleaning workflow that transforms raw data into a reliable dataset ready for analysis.
+Real-world datasets often contain duplicates, inconsistent formatting, and missing values. These issues must be addressed before performing meaningful analysis.
+
+The goal of this project is to transform a raw layoffs dataset into a clean, structured dataset ready for analysis and reporting.
 
 
 ---
 
 Dataset
 
-The dataset used in this project contains information about layoffs across companies and industries. It includes fields such as:
+The dataset contains information about layoffs across different companies and industries.
 
-Company name
+Dataset Fields
 
-Location
+Column	Description
 
-Industry
-
-Total employees laid off
-
-Percentage of layoffs
-
-Date of layoffs
-
-Company funding stage
-
-Country
+company	company name
+location	company location
+industry	industry sector
+total_laid_off	number of employees laid off
+percentage_laid_off	percentage of employees laid off
+date	layoff date
+stage	company funding stage
+country	company headquarters country
+funds_raised_millions	funding raised by the company
 
 
-Like many real-world datasets, the data initially contained duplicates, inconsistent formatting, and missing values, which required systematic cleaning.
+Like many real-world datasets, the raw data contains duplicates, missing values, and inconsistent formatting.
 
 
 ---
@@ -37,135 +37,173 @@ Tools Used
 
 MySQL
 
-SQL (Data Cleaning Techniques)
+SQL
 
 
 
 ---
 
-Data Cleaning Steps
+Data Cleaning Process
 
-The following data cleaning operations were performed:
+The following steps were performed to clean and standardize the dataset.
+
+
+---
 
 1. Removing Duplicate Records
 
-Duplicate rows were identified and removed using SQL techniques such as ROW_NUMBER() with Common Table Expressions (CTEs) to retain only unique records.
+Duplicate rows were identified and removed using SQL techniques such as window functions and ROW_NUMBER() to ensure each record represents a unique layoff event.
 
 
 ---
 
-2. Standardizing Text Data
+2. Standardizing Text Fields
 
-Several text fields contained inconsistent formatting. Standardization steps included:
+Several columns contained inconsistent formatting.
 
-Normalizing company names
+Cleaning actions included:
 
-Standardizing industry labels
+trimming whitespace
 
-Cleaning country name variations
+standardizing company names
 
-Trimming unnecessary whitespace
+normalizing industry labels
+
+correcting country name variations.
 
 
-This ensures consistent grouping and analysis later.
-
-
----
-
-3. Handling Missing and Null Values
-
-Some records contained null or missing values in fields such as industry or total layoffs.
-
-Cleaning steps included:
-
-Identifying null values
-
-Filling missing information where possible
-
-Removing unusable records when necessary
-
+This ensures reliable grouping and aggregation during analysis.
 
 
 ---
 
-4. Correcting Data Types
+3. Handling Missing Values
 
-Certain fields required formatting adjustments to ensure proper analysis.
+The dataset contained NULL or missing values in some fields.
 
-Examples include:
+Steps included:
 
-Converting date columns into proper DATE format
+identifying null values
 
-Ensuring numerical columns were stored as numeric values
+populating missing data where possible
 
+removing records that could not be corrected.
+
+
+
+---
+
+4. Fixing Date Formats
+
+The date column was converted into a proper DATE data type to allow time-based analysis.
 
 
 ---
 
 5. Removing Unnecessary Columns
 
-Columns that were no longer required after the cleaning process were removed to produce a simplified, analysis-ready dataset.
+Columns that were no longer required after cleaning were removed to produce a simplified and analysis-ready dataset.
 
 
 ---
 
-Result
+Before vs After Cleaning
 
-After the cleaning process, the dataset was transformed into a clean and structured table suitable for analysis and reporting.
+Example Issues in Raw Dataset
 
-The final dataset can now be used for tasks such as:
+company	industry	country
 
-analyzing layoffs by industry
+CryptoCurrency	crypto	United States.
+crypto currency	crypto	United States
+Airbnb	NULL	United States
 
-identifying trends over time
 
-comparing layoffs across companies and locations.
+Problems identified:
 
+duplicate entries
+
+inconsistent text formatting
+
+missing values
+
+inconsistent country naming.
+
+
+
+---
+
+Cleaned Dataset Example
+
+company	industry	country
+
+Crypto	Crypto	United States
+Airbnb	Travel	United States
+
+
+Improvements:
+
+duplicates removed
+
+consistent naming conventions
+
+standardized fields
+
+missing values handled.
+
+
+
+---
+
+Example Business Insights
+
+Once cleaned, the dataset can be used to generate insights.
+
+Layoffs by Industry
+
+SELECT industry, SUM(total_laid_off) AS total_layoffs
+FROM layoffs_cleaned
+GROUP BY industry
+ORDER BY total_layoffs DESC;
+
+
+---
+
+Layoffs by Year
+
+SELECT YEAR(date) AS year, SUM(total_laid_off) AS layoffs
+FROM layoffs_cleaned
+GROUP BY year
+ORDER BY year;
+
+
+---
+
+Top Companies by Layoffs
+
+SELECT company, SUM(total_laid_off) AS layoffs
+FROM layoffs_cleaned
+GROUP BY company
+ORDER BY layoffs DESC;
+
+These queries demonstrate how the cleaned dataset can be used for business analysis and reporting.
 
 
 ---
 
 Key SQL Concepts Demonstrated
 
-This project highlights practical SQL skills used in real-world data preparation:
+This project demonstrates several practical SQL skills used in real-world data workflows:
+
+Data cleaning using SQL
 
 Common Table Expressions (CTEs)
 
 Window functions (ROW_NUMBER)
 
-Data standardization techniques
+Handling null values
 
-Handling null and missing values
+Text standardization
 
 Data type conversion
 
-Data transformation using SQL
-
-
-
----
-
-Why Data Cleaning Matters
-
-Data cleaning is one of the most important steps in any data analysis workflow. Poor data quality can lead to incorrect insights and unreliable reporting.
-
-This project demonstrates how SQL can be used to systematically clean and prepare raw datasets for accurate analysis and decision-making.
-
-
----
-
-Project Structure
-
-Data_Cleaning-MySQL_Project
-│
-├── Data Cleaning Project.sql
-├── README.md
-
-
----
-
-Author
-
-Hanif S
-
-Data professional with experience in SQL, data analysis, and data engineering workflow
+Data preparation for analytics.
